@@ -9,59 +9,44 @@ public class ThreadSafeMap<K, V> {
 
     private Node[] hashTable = new Node[10];
 
-    public void put(K key, V value) {
+    public synchronized void put(K key, V value) {
         Node<K, V> node = new Node<>(key, value, null, key.hashCode());
         int index = calculateBacketNumber(key);
-        Node<K,V> existingNode = hashTable[index];
+        Node<K, V> existingNode = hashTable[index];
         if (existingNode == null) {
             hashTable[index] = node;
         } else {
-            Node<K,V> curNode = existingNode;
-            Node<K,V> prevNode=existingNode;
+            Node<K, V> curNode = existingNode;
+            Node<K, V> prevNode = existingNode;
             while (curNode.getNext() != null) {
                 if (key.hashCode() == curNode.getKey()
                         .hashCode() && key.equals(curNode.getKey())) {
-                    if(prevNode!=curNode) {
-                        System.out.println(prevNode);
-                        System.out.println(curNode);
-                        System.out.println("if condition");
+                    if (prevNode != curNode) { //not root element
                         node.setNext(curNode.getNext());
                         curNode = node;   //replace in the middle
                         prevNode.setNext(curNode);
-                    }else{
-                        System.out.println(prevNode);
-                        System.out.println(curNode);
-                        System.out.println("else condition");
-                        hashTable[index]=node;
+                    } else { //root element
+                        hashTable[index] = node;
+                        node.setNext(curNode.getNext());
                     }
                     return;
                 } else {
-                    prevNode=curNode;
+                    prevNode = curNode;
                     curNode = curNode.getNext();
-
                 }
             }
             if (key.hashCode() == curNode.getKey()  //check the last non null node
                     .hashCode() && key.equals(curNode.getKey())) {
-                System.out.println("print");
-                if(prevNode != curNode) {  // when it is not first element in linkdelist
-                    System.out.println(prevNode);
-                    System.out.println(curNode);
-                    System.out.println("if condition");
+                if (prevNode != curNode) {  // not root element
                     curNode = node; //replace edge node
                     prevNode.setNext(curNode);
-                }else{
-                    System.out.println(prevNode);
-                    System.out.println(curNode);
-                    System.out.println("else condition");
-                    hashTable[index]=node;
+                } else {
+                    hashTable[index] = node;  //root element
                 }
-
             } else {
 
                 curNode.setNext(node);
             }
-
         }
     }
 
