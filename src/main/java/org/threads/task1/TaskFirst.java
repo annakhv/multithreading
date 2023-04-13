@@ -24,4 +24,10 @@ public class TaskFirst implements Runnable {
       //  threadSafeAdder.start();  // this one does not give concurent mod exception because it uses syncronised implementation
        //  threadSafeSummer.start(); // same as above
     }
+
+
+    public static void main(String[] args) {
+        Thread threadTask1=new Thread(new TaskFirst());
+        threadTask1.start();
+    }
 }

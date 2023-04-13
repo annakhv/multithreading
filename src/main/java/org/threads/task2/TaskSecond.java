@@ -18,4 +18,9 @@ public class TaskSecond implements Runnable{
         sumPrinterThread.start();
 
     }
+
+    public static void main(String[] args) {
+        Thread threadTask2=new Thread(new TaskSecond());
+        threadTask2.start();
+    }
 }

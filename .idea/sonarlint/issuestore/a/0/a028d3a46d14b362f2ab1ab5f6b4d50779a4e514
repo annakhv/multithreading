@@ -1,0 +1,11 @@
+
+g	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òιόÿÿÿÿ8ζ°‡χ0
+=
+java:S2189""Add an end condition to this loop.(οÿÿÿÿÿ
+{
+java:S2142"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(δ Ή€8§ζ°‡χ0
+@
+java:S2119"Save and re-use this "Random".(εΪάόÿÿÿÿ8«ζ°‡χ0
+@
+java:S2119"Save and re-use this "Random".(ΐεƒψÿÿÿÿ8¬ζ°‡χ0
+U	java:S106"9Replace this use of System.out or System.err by a logger.(‰©¤8­ζ°‡χ0
