@@ -20,9 +20,11 @@ public class AdderToCollection implements Runnable{
         while (true) {
             try {
                 var randomElement = new Random().nextInt();
-                add(randomElement);
-                System.out.println("element " + randomElement+  "is added to the collection");
-                Thread.sleep(500);
+                synchronized (collection){
+                    add(randomElement);
+                    System.out.println("element " + randomElement+  "is added to the collection");
+                    Thread.sleep(500);
+                }
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

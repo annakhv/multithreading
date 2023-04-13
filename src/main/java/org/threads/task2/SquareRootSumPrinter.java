@@ -3,7 +3,7 @@ package org.threads.task2;
 import java.util.Collection;
 
 public class SquareRootSumPrinter implements Runnable {
-    Collection<Integer> collection;
+    private Collection<Integer> collection;
 
     public SquareRootSumPrinter(final Collection<Integer> collection) {
         this.collection = collection;
@@ -20,9 +20,12 @@ public class SquareRootSumPrinter implements Runnable {
     public void run() {
         while (true) {
             try {
-                var sumVal = calculateSumOfSquareAquareRoot();
-                System.out.println("current square root of squared sum is " + sumVal);
-                Thread.sleep(50);
+                synchronized (collection){
+                    var sumVal = calculateSumOfSquareAquareRoot();
+                    System.out.println("current square root of squared sum is " + sumVal);
+                    Thread.sleep(50);
+                }
+
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

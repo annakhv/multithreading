@@ -4,6 +4,8 @@ import java.util.Collection;
 
 public class SumPrinter implements Runnable{
     Collection<Integer> collection;
+    private AdderToCollection adder;
+
 
     public SumPrinter(final Collection<Integer> collection) {
         this.collection = collection;
@@ -17,9 +19,12 @@ public class SumPrinter implements Runnable{
     public void run() {
         while (true) {
             try {
-                var sumVal = sum();
-                System.out.println("current sum is " + sumVal);
-                Thread.sleep(50);
+                synchronized (collection){
+                    var sumVal = sum();
+                    System.out.println("current sum is " + sumVal);
+                    Thread.sleep(50);
+                }
+
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
