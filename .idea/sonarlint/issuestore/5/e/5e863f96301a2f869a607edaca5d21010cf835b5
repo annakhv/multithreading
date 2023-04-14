@@ -1,9 +1,0 @@
-
-a
-java:S1854"DRemove this useless assignment to local variable "threadSafeSummer".(àµ…8ò§÷†÷0
-e
-java:S1854"CRemove this useless assignment to local variable "threadSafeAdder".(¸ñÔôÿÿÿÿÿ8ó§÷†÷0
-V
-java:S1481"4Remove this unused "threadSafeAdder" local variable.(¸ñÔôÿÿÿÿÿ8ú§÷†÷0
-R
-java:S1481"5Remove this unused "threadSafeSummer" local variable.(àµ…8±Ç¢÷0

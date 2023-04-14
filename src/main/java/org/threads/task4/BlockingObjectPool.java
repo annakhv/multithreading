@@ -10,7 +10,7 @@ public class BlockingObjectPool<T> {
 
     private Queue<T> queue = new LinkedList<>();
     private final int size;
-    Lock lock = new ReentrantLock();
+    Lock lock = new ReentrantLock(true);
     Condition condition=lock.newCondition();
 
     /**
