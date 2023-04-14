@@ -1,0 +1,18 @@
+{
+  "userAccountId": 1,
+  "firstName": "Tom",
+  "lastName": "Moore",
+  "accountNumber": "1234554462346",
+  "accountBalances": [
+    {
+      "userAccountId": 1,
+      "currency": "GEL",
+      "balance": 1400
+    },
+    {
+      "userAccountId": 1,
+      "currency": "USD",
+      "balance": 50
+    }
+  ]
+}

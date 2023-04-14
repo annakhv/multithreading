@@ -9,6 +9,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class UserAccount {
 
+    private long userAccountId;
     private String firstName;
     private String lastName;
     private String accountNumber;
