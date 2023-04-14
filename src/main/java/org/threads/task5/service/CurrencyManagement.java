@@ -1,9 +1,11 @@
 package org.threads.task5.service;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.json.simple.parser.ParseException;
 import org.threads.task5.dao.ExchangeRateDao;
 import org.threads.task5.dao.UserAccountDao;
 import org.threads.task5.models.AccountBalance;
@@ -50,7 +52,7 @@ public class CurrencyManagement {
         return new Amount(currency, convertedAmount);
     }
 
-    public List<UserAccount> getAccounts() {
+    public List<UserAccount> getAccounts() throws IOException, ParseException {
         return userAccountDao.getAll();
     }
 }

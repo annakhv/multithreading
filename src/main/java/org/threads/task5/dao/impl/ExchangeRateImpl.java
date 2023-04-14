@@ -10,14 +10,23 @@ import org.threads.task5.models.ExchangeRate;
 
 public class ExchangeRateImpl implements ExchangeRateDao {
 
+    private DataParser parser;
+
+    public ExchangeRateImpl(final DataParser parser) {
+        this.parser = parser;
+    }
+
     @Override
     public BigDecimal getExchangeRate(final Currency from, final Currency to, final LocalDate date) {
 
-
         return null;
     }
 
-    private List<ExchangeRate> getAllRates(){
+    private List<ExchangeRate> getAllRates() {
         return null;
     }
+
+
+
+
 }
