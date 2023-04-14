@@ -9,3 +9,17 @@ Y
 )src/main/java/org/threads/task1/Node.java,9\d\9d2ed0c4ff337b91d2a3c925fdb4fee0f5683aaf
 ^
 .src/main/java/org/threads/task1/TaskFirst.java,5\e\5e863f96301a2f869a607edaca5d21010cf835b5
+b
+2src/main/java/org/threads/task1/ThreadSafeMap.java,5\2\529beea0f1a86ea28242d4b5d94d205c0cb35476
+_
+/src/main/java/org/threads/task2/SumPrinter.java,c\7\c7cc0a40f535618f7b4e18b3b4e1cbac689deb59
+_
+/src/main/java/org/threads/task2/TaskSecond.java,0\f\0f7ce5732799e074693b2f0828517a53ca99e9eb
+i
+9src/main/java/org/threads/task2/SquareRootSumPrinter.java,b\7\b742e9c766726adba1ca6978a0f481bc473fef27
+]
+-src/main/java/org/threads/task3/Consumer.java,3\9\39e52a7c1a9084fd1df9b384a0ac6d98984eb83e
+^
+.src/main/java/org/threads/task3/TaskThird.java,9\5\9518d5a103de264bc7e7225ba141f4de46baf2e8
+f
+6src/main/java/org/threads/task2/AdderToCollection.java,f\b\fba39673b900e63c59b0969026062d57065e85bb
