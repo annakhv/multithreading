@@ -1,13 +1,0 @@
-
-s
-java:S1488P"]Immediately return this expression instead of assigning it to the temporary variable "index".(ªº­ö
-m
-java:S3776"RRefactor this method to reduce its Cognitive Complexity from 22 to the 15 allowed.(¯š›éýÿÿÿÿ
-N	java:S106e"9Replace this use of System.out or System.err by a logger.(µˆœÑ
-N	java:S106f"9Replace this use of System.out or System.err by a logger.(åŸýŠ
-S	java:S106g"9Replace this use of System.out or System.err by a logger.(³¦ìÿýÿÿÿÿ
-S	java:S106h"9Replace this use of System.out or System.err by a logger.(Ðü‚“ùÿÿÿÿ
-S	java:S106i"9Replace this use of System.out or System.err by a logger.(±×€©úÿÿÿÿ
-S	java:S106j"9Replace this use of System.out or System.err by a logger.( ­‚æûÿÿÿÿ
-N	java:S106k"9Replace this use of System.out or System.err by a logger.(®é¢ã
-N	java:S106l"9Replace this use of System.out or System.err by a logger.(ÏãÉÞ
