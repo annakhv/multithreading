@@ -4,7 +4,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.threads.task5.dao.UserAccountDao;
 import org.threads.task5.models.AccountBalance;
 import org.threads.task5.models.Currency;
 import org.threads.task5.models.ExchangeRate;
@@ -20,12 +19,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DataManager {
 
    private String filePathRate = "C:\\Users\\annak\\IdeaProjects\\multithreading\\src\\main\\java\\org\\threads\\task5\\data\\rate\\";
    private String filePathUser="C:\\Users\\annak\\IdeaProjects\\multithreading\\src\\main\\java\\org\\threads\\task5\\data\\user\\";
-
+    private static final Logger logger= Logger.getLogger(DataManager.class.getName());
     ExchangeRate parseExchangeFile(String fileName) throws IOException, ParseException {
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(new FileReader(filePathRate + fileName));
@@ -67,7 +68,7 @@ public class DataManager {
         JSONArray balancesArray=new JSONArray();
         for (AccountBalance values:account.getAccountBalances()) {
             JSONObject obj=new JSONObject();
-            obj.put("userAccountId",values.getUserAcountId());
+            obj.put("userAccountId",values.getUserAccountId());
             obj.put("currency",values.getCurrency().toString());
             obj.put("balance",values.getBalance());
             balancesArray.add(obj);
@@ -78,6 +79,7 @@ public class DataManager {
         jsonObject.put("accountNumber",account.getAccountNumber());
         jsonObject.put("accountBalances",balancesArray);
         writer.write(jsonObject.toJSONString());
+        logger.log(Level.INFO,"balance has been updated in users account "+jsonObject);
         writer.close();
     }
 

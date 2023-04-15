@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class AccountBalance {
-    private long userAcountId;
+    private long userAccountId;
     private Currency currency;
     private BigDecimal balance;
 }
