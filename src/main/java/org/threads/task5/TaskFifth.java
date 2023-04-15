@@ -10,6 +10,8 @@ import org.threads.task5.models.Currency;
 import org.threads.task5.service.CurrencyManagement;
 
 import java.math.BigDecimal;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class TaskFifth implements Runnable {
     public static void main(String[] args) {
@@ -34,16 +36,12 @@ public class TaskFifth implements Runnable {
         UserIulia iulia1 = new UserIulia(currencyManagement,amount1,Currency.GEL);
         UserIulia iulia2 = new UserIulia(currencyManagement,amount2,Currency.GEL);
         UserIulia iulia3 = new UserIulia(currencyManagement,amount3,Currency.GEL);
-        Thread thread1=new Thread(iulia);
-        Thread thread2=new Thread(iulia1);
-        Thread thread3=new Thread(iulia2);
-        Thread thread4=new Thread(iulia3);
-        thread1.start();
-        thread2.start();
-        thread3.start();
-        thread4.start();
-
-
+        ExecutorService executorService= Executors.newCachedThreadPool();
+        //run tasks
+        executorService.execute(iulia);
+        executorService.execute(iulia1);
+        executorService.execute(iulia2);
+        executorService.execute(iulia3);
 
     }
 }

@@ -33,10 +33,12 @@ public class CurrencyManagement {
         BigDecimal rate = exchangedao.getExchangeRate(amount1.getCurrency(), currency, LocalDate.now());
         BigDecimal convertedAmount = rate.multiply(amount1.getAmount());
         synchronized (this) {
+            logger.log(Level.INFO,"thread doing exchange operation is"+Thread.currentThread().getName());
             account = userAccountDao.getById(id); //check again in case other thread already changed amount
             withdrawMoney(account, amount1);
             Amount amountConverted = new Amount(currency, convertedAmount);
             depositMoney(account, amountConverted);
+            logger.log(Level.INFO,"thread finished exchange operation is"+Thread.currentThread().getName());
             return amountConverted;
         }
     }
