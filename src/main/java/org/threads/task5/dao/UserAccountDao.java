@@ -11,5 +11,8 @@ public interface UserAccountDao {
 
     List<UserAccount> getAll() throws IOException, ParseException;
 
-    void setBalance(long userAccountId, AccountBalance balance);
+    void setBalance(AccountBalance balance) throws IOException, ParseException;
+
+    UserAccount getById(long id) throws IOException, ParseException;
+
 }

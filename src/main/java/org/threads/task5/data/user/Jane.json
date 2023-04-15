@@ -1,23 +1,23 @@
 {
   "userAccountId": 4,
-  "firstName": "Iulia",
-  "lastName": "Kosteva",
-  "accountNumber": "8789554462346",
+  "firstName": "Jane",
+  "lastName": "Jones",
+  "accountNumber": "0000554462346",
   "accountBalances": [
     {
       "userAccountId": 4,
       "currency": "EUR",
-      "balance": 540
+      "balance": 540.0
     },
     {
       "userAccountId": 4,
       "currency": "USD",
-      "balance": 4000
+      "balance": 4000.0
     },
     {
       "userAccountId": 4,
       "currency": "GEL",
-      "balance": 2000
+      "balance": 2000.0
     }
   ]
 }

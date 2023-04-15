@@ -7,12 +7,12 @@
     {
       "userAccountId": 1,
       "currency": "GEL",
-      "balance": 1400
+      "balance": 1400.0
     },
     {
       "userAccountId": 1,
       "currency": "USD",
-      "balance": 50
+      "balance": 50.0
     }
   ]
 }

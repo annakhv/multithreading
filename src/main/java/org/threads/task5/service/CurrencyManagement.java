@@ -23,7 +23,9 @@ public class CurrencyManagement {
         this.userAccountDao = userAccountDao;
     }
 
-    public Amount doExchange(UserAccount account, Amount amount1, Currency currency) {
+    public Amount doExchange(long id, Amount amount1, Currency currency) throws IOException, ParseException {
+        UserAccount account=userAccountDao.getById(id);
+        System.out.println("user account found is "+account);
         BigDecimal rate = exchangedao.getExchangeRate(amount1.getCurrency(), currency, LocalDate.now());
         //withdraw money
         //check that user has balance in given currency & check that users balance is positive after deducting the amount
@@ -36,6 +38,7 @@ public class CurrencyManagement {
                 .map(balance -> new AccountBalance(account.getUserAccountId(), amount1.getCurrency(), balance))
                 .findAny()
                 .orElseThrow(() -> new RuntimeException("amount is not enough of no balance with this currency"));
+        System.out.println("deducted balance is "+deductedBalance);
         //do conversion
         BigDecimal convertedAmount = rate.multiply(amount1.getAmount());
         //add money to relevant balance account
@@ -47,8 +50,9 @@ public class CurrencyManagement {
                 .map(bal -> new AccountBalance(account.getUserAccountId(), currency, bal))
                 .findAny()
                 .orElseThrow(() -> new RuntimeException("balance does not exist in target currency"));
-        userAccountDao.setBalance(account.getUserAccountId(), deductedBalance);
-        userAccountDao.setBalance(account.getUserAccountId(), addedBalance);
+        System.out.println("added balance is "+addedBalance);
+        userAccountDao.setBalance( deductedBalance);
+        userAccountDao.setBalance( addedBalance);
         return new Amount(currency, convertedAmount);
     }
 
