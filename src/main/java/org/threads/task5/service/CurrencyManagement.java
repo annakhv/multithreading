@@ -28,36 +28,43 @@ public class CurrencyManagement {
     }
 
     public Amount doExchange(long id, Amount amount1, Currency currency) throws IOException, ParseException {
-        UserAccount account=userAccountDao.getById(id);
-        logger.log(Level.INFO,"Found user account is "+account);
+        UserAccount account = userAccountDao.getById(id);
+        logger.log(Level.INFO, "Found user account is " + account);
         BigDecimal rate = exchangedao.getExchangeRate(amount1.getCurrency(), currency, LocalDate.now());
-        //withdraw money
-        //check that user has balance in given currency & check that users balance is positive after deducting the amount
+        BigDecimal convertedAmount = rate.multiply(amount1.getAmount());
+        synchronized (this) {
+            account = userAccountDao.getById(id); //check again in case other thread already changed amount
+            withdrawMoney(account, amount1);
+            Amount amountConverted = new Amount(currency, convertedAmount);
+            depositMoney(account, amountConverted);
+            return amountConverted;
+        }
+    }
+    private void withdrawMoney(UserAccount account, Amount amount) throws IOException, ParseException {
         AccountBalance deductedBalance = account.getAccountBalances()
                 .stream()
-                .filter(balance -> balance.getCurrency() == amount1.getCurrency() && balance.getBalance()
-                        .compareTo(amount1.getAmount()) > 0)
+                .filter(balance -> balance.getCurrency() == amount.getCurrency() && balance.getBalance()
+                        .compareTo(amount.getAmount()) > 0)
                 .map(balance -> balance.getBalance()
-                        .subtract(amount1.getAmount()))
-                .map(balance -> new AccountBalance(account.getUserAccountId(), amount1.getCurrency(), balance))
+                        .subtract(amount.getAmount()))
+                .map(balance -> new AccountBalance(account.getUserAccountId(), amount.getCurrency(), balance))
                 .findAny()
                 .orElseThrow(() -> new InputValidationException("balance does not have enough amount to convert or balance does not exist in given currency"));
         logger.log(Level.INFO,"deducted balance is "+deductedBalance);
-        //do conversion
-        BigDecimal convertedAmount = rate.multiply(amount1.getAmount());
-        //add money to relevant balance account
+        userAccountDao.setBalance( deductedBalance);
+    }
+
+    private void depositMoney(UserAccount account, Amount amountConverted) throws IOException, ParseException {
         AccountBalance addedBalance = account.getAccountBalances()
                 .stream()
-                .filter(bal -> bal.getCurrency() == currency)
+                .filter(bal -> bal.getCurrency() == amountConverted.getCurrency())
                 .map(bal -> bal.getBalance()
-                        .add(convertedAmount))
-                .map(bal -> new AccountBalance(account.getUserAccountId(), currency, bal))
+                        .add(amountConverted.getAmount()))
+                .map(bal -> new AccountBalance(account.getUserAccountId(), amountConverted.getCurrency(), bal))
                 .findAny()
                 .orElseThrow(() -> new InputValidationException("balance does not exist in target currency"));
         logger.log(Level.INFO,"added balance is "+addedBalance);
-        userAccountDao.setBalance( deductedBalance);
         userAccountDao.setBalance( addedBalance);
-        return new Amount(currency, convertedAmount);
     }
 
     public List<UserAccount> getAccounts() throws IOException, ParseException {
