@@ -12,7 +12,7 @@ public class ValueSummer implements Runnable {
 
     public int calculateSum() {
         return map.values()
-                .stream()
+                .parallelStream()
                 .mapToInt(Integer::intValue)
                 .sum();
     }
@@ -22,8 +22,8 @@ public class ValueSummer implements Runnable {
         while (true) {
             try {
                 var sumVal = calculateSum();
-                System.out.println("current sum is " + sumVal);
-                Thread.sleep(50);
+                System.out.println("current sum is " + sumVal +" calculated by thread "+Thread.currentThread().getName());
+                Thread.sleep(400);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

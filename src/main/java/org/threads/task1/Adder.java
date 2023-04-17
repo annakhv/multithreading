@@ -22,7 +22,7 @@ public class Adder implements Runnable {
                 var randomKey = new Random().nextInt();
                 var randomValue = new Random().nextInt();
                 addElement(randomKey, randomValue);
-                System.out.println("element with key " + randomKey + " and with value " + randomValue + " is added to the map");
+                System.out.println("element with key " + randomKey + " and with value " + randomValue + " is added to the map by thread "+Thread.currentThread().getName());
                 Thread.sleep(500);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);

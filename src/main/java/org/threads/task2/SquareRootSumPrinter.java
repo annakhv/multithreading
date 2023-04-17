@@ -1,6 +1,7 @@
 package org.threads.task2;
 
 import java.util.Collection;
+import java.util.concurrent.ForkJoinPool;
 
 public class SquareRootSumPrinter implements Runnable {
     private Collection<Integer> collection;
@@ -9,21 +10,15 @@ public class SquareRootSumPrinter implements Runnable {
         this.collection = collection;
     }
 
-    public double calculateSumOfSquareAquareRoot() {
-        return Math.sqrt(collection.stream()
-                                 .map(number -> Math.pow(number, 2))
-                                 .mapToDouble(Double::doubleValue)
-                                 .sum());
-    }
-
     @Override
     public void run() {
+        ForkJoinPool pool=ForkJoinPool.commonPool();
         while (true) {
             try {
                 synchronized (collection){
-                    var sumVal = calculateSumOfSquareAquareRoot();
-                    System.out.println("current square root of squared sum is " + sumVal);
-                    Thread.sleep(50);
+                   double sumVal= pool.invoke(new SquareRootSumRecursiveTask(collection));
+                    System.out.println("current square root of squared sum is " + Math.sqrt(sumVal));
+                    Thread.sleep(500);
                 }
 
             } catch (InterruptedException e) {

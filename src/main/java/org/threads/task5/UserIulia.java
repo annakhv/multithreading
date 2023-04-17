@@ -6,7 +6,6 @@ import org.threads.task5.models.Currency;
 import org.threads.task5.service.CurrencyManagement;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,7 +27,6 @@ public class UserIulia implements Runnable {
     @Override
     public void run() {
         //create example data
-        Amount amount = new Amount(Currency.EUR, BigDecimal.valueOf(100));
         Amount amountExchanged = null;
         try {
             amountExchanged = currencyManagement.doExchange(2, this.amountToExchnge, this.targetCurrency);
