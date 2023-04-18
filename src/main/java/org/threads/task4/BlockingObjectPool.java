@@ -10,8 +10,9 @@ public class BlockingObjectPool<T> {
 
     private Queue<T> queue = new LinkedList<>();
     private final int size;
-    Lock lock = new ReentrantLock(true);
-    Condition condition=lock.newCondition();
+    Lock lock = new ReentrantLock();
+    Condition conditionNotEmpty=lock.newCondition();
+    Condition conditionNotFull=lock.newCondition();
 
     /**
      * Creates filled pool of passed size
@@ -30,13 +31,14 @@ public class BlockingObjectPool<T> {
     public void put(T element) throws InterruptedException {
         try {
             lock.lock();
-            while (queue.size() == size) {
+            while (queue.size() >= size) {
                 System.out.println("queue is full");
-                condition.await();
+                conditionNotFull.await();
             }
             queue.add(element);
-            Thread.sleep(150);
-            condition.signal();
+            System.out.println("element " + element + " has been put");
+            Thread.sleep(50);
+            conditionNotEmpty.signal();
         } finally {
             lock.unlock();
         }
@@ -53,12 +55,12 @@ public class BlockingObjectPool<T> {
         try {
             while (queue.isEmpty()) {
                 System.out.println("queue is empty waiting to fill up");
-                condition.await();
+                conditionNotEmpty.await();
             }
             element = queue.remove();
-            Thread.sleep(300);
-            System.out.println("element " + element + " has been removed");
-            condition.signal();
+            Thread.sleep(100);
+            System.out.println("element " + element + " has been removed by thread "+Thread.currentThread().getName());
+            conditionNotFull.signal();
         } finally {
             lock.unlock();
         }

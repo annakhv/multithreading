@@ -25,8 +25,37 @@ public class TaskFour implements Runnable {
                 }
             }
         });
+        Thread consumer2 = new Thread(() -> {
+            while (true) {
+                try {
+                    blockingQueue.take();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        Thread consumer3 = new Thread(() -> {
+            while (true) {
+                try {
+                    blockingQueue.take();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
         producer.start();
         consumer.start();
+        consumer2.start();
+        consumer3.start();
+        try {
+            producer.join();
+            consumer.join();
+            consumer2.join();
+            consumer3.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     public static void main(String[] args) {
