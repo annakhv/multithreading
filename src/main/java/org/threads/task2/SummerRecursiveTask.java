@@ -16,7 +16,7 @@ public class SummerRecursiveTask extends RecursiveTask<Integer> {
         this.collection = collection;
     }
 
-    private static final int threshold = 30;
+    private static final int threshold = 20;
 
     @Override
     protected Integer compute() {
@@ -40,6 +40,7 @@ public class SummerRecursiveTask extends RecursiveTask<Integer> {
         Collection<Integer> coll2 = Arrays.stream(Arrays.copyOfRange(array, array.length / 2, array.length))
                 .map(obj -> (Integer) obj)
                 .toList();
+        logger.log(Level.INFO,Thread.currentThread().getName() +" is adding subtasks in summerRecursiveTask");
         adderTasks.add(new SummerRecursiveTask(coll1));
         adderTasks.add(new SummerRecursiveTask(coll2));
         return adderTasks;

@@ -17,7 +17,7 @@ public class SquareRootSumRecursiveTask extends RecursiveTask<Double> {
         this.collection = collection;
     }
 
-    private static final int threshold = 30;
+    private static final int threshold = 20;
 
     @Override
     protected Double compute() {
@@ -41,6 +41,7 @@ public class SquareRootSumRecursiveTask extends RecursiveTask<Double> {
         Collection<Integer> coll2 = Arrays.stream(Arrays.copyOfRange(array, array.length / 2, array.length))
                 .map(obj -> (Integer) obj)
                 .toList();
+        logger.log(Level.INFO,Thread.currentThread().getName() +" is adding subtasks in SquareRootSumRecursiveTask");
         adderTasks.add(new SquareRootSumRecursiveTask(coll1));
         adderTasks.add(new SquareRootSumRecursiveTask(coll2));
         return adderTasks;

@@ -2,10 +2,14 @@ package org.threads.task2;
 
 import java.util.Collection;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AdderToCollection implements Runnable{
 
     Collection<Integer> collection;
+
+    private static Logger logger= Logger.getLogger(AdderToCollection.class.getName());
 
     public AdderToCollection(final Collection<Integer> collection) {
         this.collection = collection;
@@ -22,8 +26,8 @@ public class AdderToCollection implements Runnable{
                 var randomElement = new Random().nextInt();
                 synchronized (collection){
                     add(randomElement);
-                    System.out.println("element " + randomElement+  "is added to the collection");
-                    Thread.sleep(500);
+                    logger.log(Level.INFO,"element " + randomElement+  "is added to the collection of size "+collection.size());
+                    Thread.sleep(100);
                 }
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
